@@ -4,7 +4,14 @@ public class Jogadas {
 
 	private int pontos;
 
+	
+
+	
+	
+	
 	public int rodada(String jogada, int pontuacao) {
+		
+		
 
 		if (jogada.equalsIgnoreCase("truco")) {
 			pontos = 3;
@@ -24,24 +31,23 @@ public class Jogadas {
 		} else {
 			pontos = 1;
 		}
-		
-		return pontuacao+pontos;
+
+		return pontuacao + pontos;
 	}
 
 	public static void main(String[] args) {
 		Jogadas jogada = new Jogadas();
 		int pontuacao = 0;
 		int totalpontos = jogada.rodada("truco", pontuacao);
-		
-		
-		totalpontos = jogada.rodada("seis", totalpontos);
-		
-		
-		if (totalpontos >= 12){
-			System.out.println("FIM DE JOGO \n Total de pontos = "+totalpontos);
-		}else{
-		   System.out.println("Placar Parcial = "+totalpontos);
-	   }
 
-}
+		totalpontos = jogada.rodada("seis", totalpontos);
+
+		if (totalpontos >= 12) {
+			System.out.println("FIM DE JOGO \n Total de pontos = "
+					+ totalpontos);
+		} else {
+			System.out.println("Placar Parcial = " + totalpontos);
+		}
+
+	}
 }

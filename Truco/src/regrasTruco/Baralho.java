@@ -1,22 +1,67 @@
 package regrasTruco;
 
+import java.awt.font.NumericShaper;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class Baralho {
 
-	void adicionarCartas(ArrayList<Cartas> baralho) {
+	
+	public ArrayList<Cartas> adicionarCartas(ArrayList<Cartas> baralho) {
 
 		baralho.add(Cartas.AS);
 		baralho.add(Cartas.ESPADILHA);
 		baralho.add(Cartas.DOIS);
 		baralho.add(Cartas.TRES);
-		baralho.add(Cartas.QUATRO_PAUS);
+		baralho.add(Cartas.QUATRO_PAUS_ZAP);
 		baralho.add(Cartas.SETE_COPAS);
 		baralho.add(Cartas.SETE_OUROS);
 		baralho.add(Cartas.VALETE);
 		baralho.add(Cartas.DAMA);
 		baralho.add(Cartas.REI);
+		
+			return baralho;	 
 
 	}
 
+	
+	public List<Cartas> cartasDaMao(ArrayList<Cartas> monte){
+		
+		ArrayList<Cartas> mao = new ArrayList<Cartas>();
+		
+		Baralho baralho = new Baralho();
+		baralho.adicionarCartas(monte);
+		
+		int numeroAleatorio1 = (int) (Math.random() * 9); 
+		int numeroAleatorio2 = (int) (Math.random() * 9); 
+		int numeroAleatorio3 = (int) (Math.random() * 9); 
+		
+		//adicionando 3 cartas a mão
+		mao.add(monte.get(numeroAleatorio1));
+		
+		
+		
+		
+		mao.add(monte.get(numeroAleatorio2));
+		mao.add(monte.get(numeroAleatorio3));
+		
+		return mao;
+	}
+		public static void main(String[] args) {
+
+			
+		Baralho baralho = new Baralho();
+		ArrayList<Cartas> monte = new ArrayList<Cartas>();
+		
+		monte = baralho.adicionarCartas(monte);
+		
+		System.out.println(baralho.cartasDaMao(monte));
+			
+		}
 }
+
+
+
+
+
