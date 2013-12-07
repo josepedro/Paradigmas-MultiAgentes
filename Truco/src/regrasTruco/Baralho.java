@@ -1,9 +1,7 @@
 package regrasTruco;
 
-import java.awt.font.NumericShaper;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class Baralho {
 
@@ -25,7 +23,8 @@ public class Baralho {
 
 	}
 
-	
+
+
 	public List<Cartas> cartasDaMao(ArrayList<Cartas> monte){
 		
 		ArrayList<Cartas> mao = new ArrayList<Cartas>();
@@ -40,9 +39,6 @@ public class Baralho {
 		//adicionando 3 cartas a mão
 		mao.add(monte.get(numeroAleatorio1));
 		
-		
-		
-		
 		mao.add(monte.get(numeroAleatorio2));
 		mao.add(monte.get(numeroAleatorio3));
 		
@@ -52,11 +48,9 @@ public class Baralho {
 
 			
 		Baralho baralho = new Baralho();
-		ArrayList<Cartas> monte = new ArrayList<Cartas>();
+		ArrayList<Cartas> mao = new ArrayList<Cartas>();
 		
-		monte = baralho.adicionarCartas(monte);
-		
-		System.out.println(baralho.cartasDaMao(monte));
+		mao = baralho.adicionarCartas(mao);
 			
 		}
 }
