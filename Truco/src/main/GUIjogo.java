@@ -10,65 +10,47 @@ import jade.core.behaviours.OneShotBehaviour;
 
 public class GUIjogo extends JFrame {
 
-	BorderLayout borderLayout1 = new BorderLayout();
 	JPanel pnl_main = new JPanel();
-	JButton btn_Exit = new JButton();
-	Component component3;
-	JButton btn_stop = new JButton();
-	Component component2;
-	JButton btn_start = new JButton();
-	Box box_buttons;
-	JPanel pnl_numGuests = new JPanel();
-	BorderLayout borderLayout3 = new BorderLayout();
-	JLabel lbl_numGuests = new JLabel();
-	Box box_numGuests;
-	JLabel lbl_guestCount = new JLabel();
-	JSlider slide_numGuests = new JSlider();
-	Component component1;
-	Component component4;
-	GridLayout gridLayout1 = new GridLayout();
-	JLabel jLabel1 = new JLabel();
-	JLabel jLabel2 = new JLabel();
-	JLabel lbl_numIntroductions = new JLabel();
-	JLabel jLabel4 = new JLabel();
-	JLabel lbl_partyState = new JLabel();
-	Box box1;
-	JProgressBar prog_rumourCount = new JProgressBar();
-	Component component6;
-	Component component5;
-	JLabel jLabel3 = new JLabel();
-	JLabel lbl_rumourAvg = new JLabel();
+	JButton botao_joga_carta = new JButton();
+	JButton botao_aceita_truco = new JButton();
+	JButton botao_pede_truco = new JButton();
+	JPanel pnl_feedback = new JPanel();
+	JLabel feedback = new JLabel();
+	GridLayout gridLayout = new GridLayout();
+	
+	
+	protected JogadorDeInicio jogadorDeInicio;
 
-	// protected HostAgent m_owner;
-
-
-	public GUIjogo() {
+	public GUIjogo(JogadorDeInicio jogadorDeInicio) {
 		try {
 			jbInit();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		// m_owner = owner;
+		this.jogadorDeInicio = jogadorDeInicio;
 	}
 
 	private void jbInit() throws Exception {
-		pnl_main.setLayout(gridLayout1);
-		btn_Exit.setText("Exit");
-		btn_Exit.addActionListener(new java.awt.event.ActionListener() {
+		pnl_main.setLayout(gridLayout);
+		feedback.setText("Tessstando");
+		this.getContentPane().add(pnl_feedback, BorderLayout.NORTH);
+		pnl_feedback.add(feedback);
+		botao_joga_carta.setText("Jogue Carta");
+		botao_joga_carta.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn_Exit_actionPerformed(e);
 			}
 		});
-		btn_stop.setEnabled(false);
-		btn_stop.setText("Stop");
-		btn_stop.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				btn_stop_actionPerformed(e);
-			}
-		});
-		btn_start.setText("Start");
-		btn_start.addActionListener(new java.awt.event.ActionListener() {
+		botao_aceita_truco.setText("Aceita Truco?");
+		botao_aceita_truco
+				.addActionListener(new java.awt.event.ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						btn_stop_actionPerformed(e);
+					}
+				});
+		botao_pede_truco.setText("Pede Truco?");
+		botao_pede_truco.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn_start_actionPerformed(e);
 			}
@@ -80,10 +62,10 @@ public class GUIjogo extends JFrame {
 			}
 		});
 		this.getContentPane().add(pnl_main, BorderLayout.CENTER);
-		pnl_main.add(btn_start, null);
-		pnl_main.add(btn_Exit, null);
-		pnl_main.add(btn_stop, null);
-				
+		pnl_main.add(botao_joga_carta, null);
+		pnl_main.add(botao_pede_truco, null);
+		pnl_main.add(botao_aceita_truco, null);
+
 	}
 
 	/**
@@ -115,10 +97,9 @@ public class GUIjogo extends JFrame {
 	}
 
 	void enableControls(boolean starting) {
-		btn_start.setEnabled(!starting);
-		btn_stop.setEnabled(starting);
-		slide_numGuests.setEnabled(!starting);
-		btn_Exit.setEnabled(!starting);
+		botao_pede_truco.setEnabled(!starting);
+		botao_aceita_truco.setEnabled(starting);
+		botao_joga_carta.setEnabled(!starting);
 	}
 
 	void btn_Exit_actionPerformed(ActionEvent e) {

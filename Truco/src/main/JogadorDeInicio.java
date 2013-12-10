@@ -37,7 +37,7 @@ public class JogadorDeInicio extends Agent {
 	}
 
 	private void inciandoGUI() {
-		m_frame = new GUIjogo();
+		m_frame = new GUIjogo(this);
 
         m_frame.setSize( 400, 200 );
         m_frame.setLocation( 400, 400 );
