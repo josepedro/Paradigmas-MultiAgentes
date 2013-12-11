@@ -17,7 +17,7 @@ public class JogadorDeInicio extends Agent {
 	protected GUIjogo m_frame = null;
 
 	protected void setup() {
-		System.out.println("O jogador "+getLocalName()+" está querendo jogar!");
+		System.out.println("O jogador "+getLocalName()+" esta querendo jogar!");
 		
 		//Adicionando descricao ao agente jogador novato
 		DFAgentDescription descricaoAgente = new DFAgentDescription();
