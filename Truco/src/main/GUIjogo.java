@@ -20,6 +20,7 @@ public class GUIjogo extends JFrame {
 	JButton botao_matar_agente = new JButton();
 
 	protected JogadorDeInicio jogadorDeInicio;
+	protected Jogador1 jogador1;
 
 	public GUIjogo(JogadorDeInicio jogadorDeInicio) {
 		try {
@@ -29,6 +30,16 @@ public class GUIjogo extends JFrame {
 		}
 
 		this.jogadorDeInicio = jogadorDeInicio;
+	}
+	
+	public GUIjogo(Jogador1 jogador1) {
+		try {
+			jbInit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		this.jogador1 = jogador1;
 	}
 
 	private void jbInit() throws Exception {
