@@ -41,7 +41,7 @@ public class Baralho {
 		
 		mao.add(monte.get(numeroAleatorio2));
 		mao.add(monte.get(numeroAleatorio3));
-		
+		 
 		return mao;
 	}
 		public static void main(String[] args) {
