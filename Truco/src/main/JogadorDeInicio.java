@@ -83,24 +83,21 @@ public class JogadorDeInicio extends Agent {
 
 	protected void setup() {
 
+		// Adicionando jogador de Inicio nas paginas amarelas
 		System.out.println("O jogador " + getLocalName()
-				+ " está querendo jogar!");
+				+ " esta querendo jogar!");
 
-		// Adicionando descricao ao agente jogador novato
-		// DFAgentDescription descricaoAgente = new DFAgentDescription();
-		// descricaoAgente.setName(getAID());
-		// ServiceDescription servicoDescricao = new ServiceDescription();
-		// servicoDescricao
-		// .setType("Jogador Novato: joga cartas aleatorias; nunca pede truco; sempre aceita truco");
-		// servicoDescricao.setName("JADE-Novato");
-		// descricaoAgente.addServices(servicoDescricao);
-		// try {
-		// DFService.register(this, descricaoAgente);
-		// } catch (FIPAException e) {
-		// e.printStackTrace();
-		// }
-
-		//
+		DFAgentDescription dfd = new DFAgentDescription();
+		dfd.setName(getAID());
+		ServiceDescription sd = new ServiceDescription();
+		sd.setType("Pessoa Comum");
+		sd.setName("Pessoa Comum");
+		dfd.addServices(sd);
+		try {
+			DFService.register(this, dfd);
+		} catch (FIPAException fe) {
+			fe.printStackTrace();
+		}
 
 		// Iniciando a GUI de desenvolvimento do agente jogador
 		inciandoGUI();
