@@ -20,7 +20,7 @@ public class GUIjogo extends JFrame {
 	JButton botao_matar_agente = new JButton();
 
 	protected JogadorDeInicio jogadorDeInicio;
-
+	
 	public GUIjogo(JogadorDeInicio jogadorDeInicio) {
 		try {
 			jbInit();
@@ -30,10 +30,10 @@ public class GUIjogo extends JFrame {
 
 		this.jogadorDeInicio = jogadorDeInicio;
 	}
-
+	
 	private void jbInit() throws Exception {
 		pnl_main.setLayout(gridLayout);
-		feedback.setText("Tessstando");
+		feedback.setText("Jogar Truco");
 		this.getContentPane().add(pnl_feedback, BorderLayout.NORTH);
 		pnl_feedback.add(feedback);
 		botao_joga_carta.setText("Jogue Carta");
@@ -81,10 +81,12 @@ public class GUIjogo extends JFrame {
 
 	void botaoJogaCartaListener(ActionEvent e) {
 		jogadorDeInicio.jogaCarta();
+
 	}
 	
 	void botaoMataAgenteListener(ActionEvent e){
 		jogadorDeInicio.doDelete();
+
 		System.out.println("Jogador "+jogadorDeInicio.getLocalName()+" morto!");
 	}
 

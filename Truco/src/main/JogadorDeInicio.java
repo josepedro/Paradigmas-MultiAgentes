@@ -1,5 +1,10 @@
 package main;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import regrasTruco.Baralho;
+import regrasTruco.Cartas;
 import jade.core.Agent;
 import jade.core.behaviours.SimpleBehaviour;
 import jade.domain.DFService;
@@ -10,11 +15,14 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
 /**
  * Implementando o jogador novato
  */
+@SuppressWarnings("serial")
 public class JogadorDeInicio extends Agent {
 
 	protected GUIjogo m_frame = null;
-
-	// Inserindo comportamento de jogar carta
+	protected Baralho baralho = new Baralho();
+    protected ArrayList<Cartas> monte = new ArrayList<Cartas>();
+    protected int pontuacaoFinal = 0;
+    // Inserindo comportamento de jogar carta
 	class ComportamentoJogarCartas extends SimpleBehaviour {
 
 		// Instancia do comportamento
@@ -24,8 +32,13 @@ public class JogadorDeInicio extends Agent {
 
 		@Override
 		public void action() {
+			baralho.adicionarCartas(monte);
+			List<Cartas> mao = baralho.cartasDaMao(monte);
 			System.out.println("Eu " + myAgent.getLocalName()
-					+ " acabei de jogar uma carta.");
+					+ " Comprei 3 cartas "+mao);
+			System.out.println("Eu " + myAgent.getLocalName()
+					+ " acabei de jogar uma carta "+mao.get(0));
+			mao.remove(0);
 		}
 
 		@Override
@@ -70,6 +83,8 @@ public class JogadorDeInicio extends Agent {
 			public void action() {
 				System.out.println("Eu " + myAgent.getLocalName()
 						+ " aceito truco na hora.");
+				pontuacaoFinal = pontuacaoFinal +3;
+				System.out.println("A partida agora esta valendo "+pontuacaoFinal);
 			}
 
 			@Override
@@ -83,24 +98,21 @@ public class JogadorDeInicio extends Agent {
 
 	protected void setup() {
 
+		// Adicionando jogador de Inicio nas paginas amarelas
 		System.out.println("O jogador " + getLocalName()
-				+ " está querendo jogar!");
+				+ " esta querendo jogar!");
 
-		// Adicionando descricao ao agente jogador novato
-		// DFAgentDescription descricaoAgente = new DFAgentDescription();
-		// descricaoAgente.setName(getAID());
-		// ServiceDescription servicoDescricao = new ServiceDescription();
-		// servicoDescricao
-		// .setType("Jogador Novato: joga cartas aleatorias; nunca pede truco; sempre aceita truco");
-		// servicoDescricao.setName("JADE-Novato");
-		// descricaoAgente.addServices(servicoDescricao);
-		// try {
-		// DFService.register(this, descricaoAgente);
-		// } catch (FIPAException e) {
-		// e.printStackTrace();
-		// }
-
-		//
+		DFAgentDescription dfd = new DFAgentDescription();
+		dfd.setName(getAID());
+		ServiceDescription sd = new ServiceDescription();
+		sd.setType("Pessoa Comum");
+		sd.setName("Pessoa Comum");
+		dfd.addServices(sd);
+		try {
+			DFService.register(this, dfd);
+		} catch (FIPAException fe) {
+			fe.printStackTrace();
+		}
 
 		// Iniciando a GUI de desenvolvimento do agente jogador
 		inciandoGUI();
