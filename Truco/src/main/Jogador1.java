@@ -127,7 +127,7 @@ public class Jogador1 extends Agent {
 						reply.setContent("ACEITO");
 					}
 					myAgent.send(reply);
-					System.out.println("O jogador 1 respondeu: "
+					System.out.println("O jogador  respondeu: "
 							+ reply.getContent());
 				} else {
 					block();
