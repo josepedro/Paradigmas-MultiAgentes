@@ -1,5 +1,10 @@
 package main;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import regrasTruco.Baralho;
+import regrasTruco.Cartas;
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.Behaviour;
@@ -63,12 +68,19 @@ public class Jogador1 extends Agent {
 		});
 
 
-		addBehaviour(new TickerBehaviour(this, 10000) {
+		addBehaviour(new TickerBehaviour(this, 9000) {
 			protected void onTick() {
 				
+				Baralho baralho = new Baralho();
+				ArrayList<Cartas> monte = new ArrayList<Cartas>();
+			    baralho.adicionarCartas(monte);
+				int pontuacao = 1;
+				List cartasJogador1 = baralho.cartasDaMao(monte);
+				 int posicaoDaCarta = 0;
 				
 				ACLMessage msg = myAgent.receive();
 				ACLMessage order = new ACLMessage(ACLMessage.CFP);
+				
 				ACLMessage mensagemParaJogador2 = new ACLMessage(ACLMessage.CFP);
 				for (int i = 0; i < jogador2.length; ++i) {
 					mensagemParaJogador2.addReceiver(jogador2[i]);
@@ -77,31 +89,39 @@ public class Jogador1 extends Agent {
 				mensagemParaJogador2.setConversationId("Chamar");
 				myAgent.send(mensagemParaJogador2);
 
-				mensagemParaJogador2.setContent("Joguei a carta :  ?");
+				mensagemParaJogador2.setContent(" "+cartasJogador1.get(posicaoDaCarta));
+				posicaoDaCarta++;
+				if (posicaoDaCarta >=2) {
+					posicaoDaCarta = 0;
+				}
 				mensagemParaJogador2.setConversationId("Jogada");
-
 				myAgent.send(mensagemParaJogador2);
-				
+			
 				mensagemParaJogador2.setContent("TRUCO LADRAO");
 				mensagemParaJogador2.setConversationId("Truco");
 				
+				if(mensagemParaJogador2.getContent().equalsIgnoreCase("TRUCO LADRAO")){
+					
+
+					System.out.println("Pontuacao da rodada \n "+pontuacao);
+					
+				}	
 				myAgent.send(mensagemParaJogador2);
 				if (msg != null) {
-					// CFP Message received. Process it
+				
 					ACLMessage reply = msg.createReply();
-					System.out.println("Aguardando um jogador : "
-							+ msg.getContent());
-					// Recebe Mensagem de Policial
+					System.out.println("O jogador : " + getAID().getName()+" Realizou a Jogada  : "+msg.getContent());
+					// Recebe Mensagem Jogador
 					if (reply.getConversationId() == "Chamar") {
 						reply.setPerformative(ACLMessage.AGREE);
 						reply.setContent("Simbora meu pato");
 
-						// Recebe Mensagem de PessoaComum
+						
 					} else if (reply.getConversationId() == "Jogada") {
 						reply.setPerformative(ACLMessage.AGREE);
 						reply.setContent("Joguei a carta ");
 
-						// Recebe mensagem de Usuário
+						// Recebe Pedido de truco
 					} else if (reply.getConversationId() == "Truco") {
 						reply.setPerformative(ACLMessage.FAILURE);
 						reply.setContent("ACEITO");
@@ -119,7 +139,7 @@ public class Jogador1 extends Agent {
 
 	
 	public void takeDown() {
-		// Desresgistrando das páginas amarelas
+		//tirando das páginas amarelas
 		try {
 			DFService.deregister(this);
 		} catch (FIPAException fe) {
