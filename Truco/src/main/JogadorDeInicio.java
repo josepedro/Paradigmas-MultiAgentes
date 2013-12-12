@@ -104,6 +104,7 @@ public class JogadorDeInicio extends Agent {
 
 		// Iniciando a GUI de desenvolvimento do agente jogador
 		inciandoGUI();
+		
 
 	}
 
