@@ -1,11 +1,13 @@
 package main;
 
+import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.SimpleBehaviour;
 import jade.domain.DFService;
 import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
+import jade.lang.acl.ACLMessage;
 
 /**
  * Implementando o jogador novato
@@ -24,8 +26,13 @@ public class JogadorDeInicio extends Agent {
 
 		@Override
 		public void action() {
-			System.out.println("Eu " + myAgent.getLocalName()
+			ACLMessage mensagemCartaJogada = new ACLMessage(ACLMessage.INFORM);
+			mensagemCartaJogada.addReceiver(new AID("Novato", AID.ISLOCALNAME));
+			mensagemCartaJogada.setLanguage("Portugues");
+			mensagemCartaJogada.setOntology("Carta Jogada");
+			mensagemCartaJogada.setContent("Eu, " + myAgent.getLocalName()
 					+ " acabei de jogar uma carta.");
+			myAgent.send(mensagemCartaJogada);
 		}
 
 		@Override
@@ -46,8 +53,15 @@ public class JogadorDeInicio extends Agent {
 
 		@Override
 		public void action() {
-			System.out.println("Eu " + myAgent.getLocalName()
+
+			ACLMessage mensagemCartaJogada = new ACLMessage(ACLMessage.INFORM);
+			mensagemCartaJogada.addReceiver(new AID("Novato", AID.ISLOCALNAME));
+			mensagemCartaJogada.setLanguage("Portugues");
+			mensagemCartaJogada.setOntology("Carta Jogada");
+			mensagemCartaJogada.setContent("Eu " + myAgent.getLocalName()
 					+ " não quero pedir truco nem a pau.");
+			myAgent.send(mensagemCartaJogada);
+
 		}
 
 		@Override
@@ -57,29 +71,34 @@ public class JogadorDeInicio extends Agent {
 		}
 
 	}
-	
+
 	// Inserindo comportamento de aceitar truco
-		class ComportamentoAceitarTruco extends SimpleBehaviour {
+	class ComportamentoAceitarTruco extends SimpleBehaviour {
 
-			// Instancia do comportamento
-			public ComportamentoAceitarTruco(Agent agente) {
-				super(agente);
-			}
+		// Instancia do comportamento
+		public ComportamentoAceitarTruco(Agent agente) {
+			super(agente);
+		}
 
-			@Override
-			public void action() {
-				System.out.println("Eu " + myAgent.getLocalName()
-						+ " aceito truco na hora.");
-			}
-
-			@Override
-			public boolean done() {
-				// O comportamento so sera executado uma vez
-				return true;
-			}
+		@Override
+		public void action() {
+			ACLMessage mensagemCartaJogada = new ACLMessage(ACLMessage.INFORM);
+			mensagemCartaJogada.addReceiver(new AID("Novato", AID.ISLOCALNAME));
+			mensagemCartaJogada.setLanguage("Portugues");
+			mensagemCartaJogada.setOntology("Carta Jogada");
+			mensagemCartaJogada.setContent("Eu " + myAgent.getLocalName()
+					+ " aceito truco na hora.");
+			myAgent.send(mensagemCartaJogada);
 
 		}
 
+		@Override
+		public boolean done() {
+			// O comportamento so sera executado uma vez
+			return true;
+		}
+
+	}
 
 	protected void setup() {
 
@@ -104,7 +123,6 @@ public class JogadorDeInicio extends Agent {
 
 		// Iniciando a GUI de desenvolvimento do agente jogador
 		inciandoGUI();
-		
 
 	}
 
@@ -126,9 +144,10 @@ public class JogadorDeInicio extends Agent {
 		ComportamentoPedirTruco pedirTruco = new ComportamentoPedirTruco(this);
 		addBehaviour(pedirTruco);
 	}
-	
+
 	public void aceitaTruco() {
-		ComportamentoAceitarTruco aceitarTruco = new ComportamentoAceitarTruco(this);
+		ComportamentoAceitarTruco aceitarTruco = new ComportamentoAceitarTruco(
+				this);
 		addBehaviour(aceitarTruco);
 	}
 }
