@@ -37,6 +37,7 @@ public class Baralho {
 		int numeroAleatorio3 = (int) (Math.random() * 9); 
 		
 		//adicionando 3 cartas a mão
+		
 		mao.add(monte.get(numeroAleatorio1));
 		
 		mao.add(monte.get(numeroAleatorio2));
